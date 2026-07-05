@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -55,10 +56,11 @@ ROOT_URLCONF = 'itam_core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],  # জ্যাঙ্গোকে কাস্টম টেমপ্লেট ফোল্ডারটি চিনিয়ে দেওয়া হলো
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -116,3 +118,88 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# ১. প্রোজেক্টের মেইন static/ ফোল্ডারটি জ্যাঙ্গোকে চিনিয়ে দেওয়া
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+
+# ২. collectstatic কমান্ড দিলে সব ফাইল যেখানে এসে জমা হবে
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+
+JAZZMIN_SETTINGS = {
+    # ড্যাশবোর্ডের মূল টাইটেল ও হেডার সেটিংস
+    "site_title": "ITAM Admin",
+    "site_header": "ITAM SYSTEM",
+    "site_brand": "ITAM Infrastructure",
+    "welcome_sign": "Welcome to IT Asset Management System",
+    
+    # ফুটার কাস্টমাইজেশন (আপনার চাহিদা অনুযায়ী আপডেট করা হয়েছে)
+    "copyright": "ITAM Infrastructure",  # ফুটার টেক্সট পরিবর্তন করা হলো
+    "version": "",                       # জ্যাজমিন ভার্সন নাম্বারটি সম্পূর্ণ মুছে ফেলার জন্য এটি খালি রাখা হলো
+    
+    # টপ মেনু এবং সাইডবার সেটিংস
+    "search_model": ["core_assets.Asset"],
+    "topmenu_links": [
+        {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
+        {"model": "core_assets.Asset"},
+    ],
+    
+    # বাম পাশের মেনুবার স্টাইল
+    "show_sidebar": True,
+    "navigation_expanded": False,
+    "hide_apps": [],
+    "hide_models": [],
+    
+    # আইকন সেটআপ
+    "icons": {
+        "auth": "fas fa-users-cog",
+        "auth.user": "fas fa-user",
+        "auth.Group": "fas fa-users",
+        "core_assets.Asset": "fas fa-laptop",
+        "core_assets.Vendor": "fas fa-store",
+        "core_assets.Employee": "fas fa-user-tie",
+        "core_assets.Location": "fas fa-map-marker-alt",
+        "core_assets.PurchaseOrder": "fas fa-file-invoice-dollar",
+        "core_assets.AssetTransfer": "fas fa-exchange-alt",
+        "core_assets.MaintenanceRequest": "fas fa-tools",
+        "core_assets.AssetAudit": "fas fa-clipboard-check",
+        "core_assets.AssetDocument": "fas fa-file-alt",
+    },
+    "order_with_respect_to": ["core_assets", "auth"],
+    "custom_css": "css/custom_admin.css",
+}
+
+# ড্যাশবোর্ডের থিম কালার (Corporate Dark/Light Look)
+JAZZMIN_UI_TUNER = {
+    "navbar_small_text": False,
+    "footer_small_text": False,
+    "body_small_text": False,
+    "brand_small_text": False,
+    "brand_colour": "navbar-dark",
+    "accent": "accent-primary",
+    "navbar": "navbar-dark bg-dark",
+    "no_navbar_border": False,
+    "navbar_fixed": True,
+    "layout_boxed": False,
+    "footer_fixed": False,
+    "sidebar_fixed": True,
+    "sidebar": "sidebar-dark-primary",
+    "sidebar_nav_small_text": False,
+    "sidebar_disable_expand": False,
+    "sidebar_nav_child_indent": True,
+    "sidebar_nav_compact_style": False,
+    "sidebar_nav_legacy_style": False,
+    "sidebar_nav_flat_style": False,
+    "theme": "default",
+    "dark_mode_theme": None,
+    "button_classes": {
+        "primary": "btn-primary",
+        "secondary": "btn-secondary",
+        "info": "btn-info",
+        "warning": "btn-warning",
+        "danger": "btn-danger",
+        "success": "btn-success"
+    }
+}

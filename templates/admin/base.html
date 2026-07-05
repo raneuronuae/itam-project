@@ -1,0 +1,35 @@
+{% extends "admin/base.html" %}
+
+{% block extrahead %}
+{{ block.super }}
+<style>
+    /* ১. পুরো ড্যাশবোর্ডের সব পেজ থেকে জ্যাজমিন ভার্সন টেক্সট চিরতরে হাইড */
+    footer.main-footer .float-right {
+        display: none !important;
+    }
+
+    /* ২. ইউজার প্রোফাইল ও ফর্ম ভিউ প্রিমিয়াম করার জন্য কাস্টমাইজেশন */
+    .card-body {
+        border-radius: 8px !important;
+    }
+    
+    .form-group {
+        border-bottom: 1px solid #f1f5f9;
+        padding-bottom: 15px;
+    }
+    
+    /* পাসওয়ার্ড হ্যাশ টেক্সটকে ক্লিন ও মার্জিত করার জন্য স্টাইল */
+    .form-group .help-block, 
+    .form-group text {
+        font-size: 12px !important;
+        color: #64748b !important;
+        font-family: system-ui, sans-serif !important;
+        background: #f8fafc;
+        padding: 8px 12px;
+        border-radius: 6px;
+        display: inline-block;
+        margin-top: 5px;
+        border: 1px solid #e2e8f0;
+    }
+</style>
+{% endblock %}

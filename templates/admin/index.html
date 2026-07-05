@@ -1,0 +1,56 @@
+{% extends "admin/index.html" %}
+{% load i18n static %}
+
+{% block content %}
+<!-- মার্জিত ও প্রিমিয়াম ড্যাশবোর্ড ওভারভিউ কার্ডসমূহ -->
+<div class="row mb-4">
+    
+    <!-- ১. মোট অ্যাসেট ওভারভিউ (সফট ব্লু শেড) -->
+    <div class="col-12 col-sm-6 col-md-3 mb-3">
+        <div class="info-box bg-white border shadow-sm" style="border-radius: 8px; border-color: #e2e8f0 !important;">
+            <span class="info-box-icon elevation-0" style="background-color: #e0f2fe; color: #0369a1; border-radius: 6px; max-width: 60px; height: 60px; margin: auto 10px;"><i class="fas fa-desktop"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text text-uppercase text-muted font-weight-bold" style="font-size: 10px; letter-spacing: 0.5px;">Total IT Assets</span>
+                <span class="info-box-number h5 font-weight-bold text-dark mb-0">Active Infrastructure</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ২. ডেবিট / মোট পারচেজ কস্ট (সফট গ্রিন শেড) -->
+    <div class="col-12 col-sm-6 col-md-3 mb-3">
+        <div class="info-box bg-white border shadow-sm" style="border-radius: 8px; border-color: #e2e8f0 !important;">
+            <span class="info-box-icon elevation-0" style="background-color: #dcfce7; color: #15803d; border-radius: 6px; max-width: 60px; height: 60px; margin: auto 10px;"><i class="fas fa-arrow-down"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text text-uppercase text-muted font-weight-bold" style="font-size: 10px; letter-spacing: 0.5px;">Procurement (Debit)</span>
+                <span class="info-box-number h5 font-weight-bold text-dark mb-0">Financial Investment</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ৩. ক্রেডিট / ডিসপোজাল ভ্যালু (সফট稳 রেড শেড) -->
+    <div class="col-12 col-sm-6 col-md-3 mb-3">
+        <div class="info-box bg-white border shadow-sm" style="border-radius: 8px; border-color: #e2e8f0 !important;">
+            <span class="info-box-icon elevation-0" style="background-color: #fee2e2; color: #b91c1c; border-radius: 6px; max-width: 60px; height: 60px; margin: auto 10px;"><i class="fas fa-arrow-up"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text text-uppercase text-muted font-weight-bold" style="font-size: 10px; letter-spacing: 0.5px;">Disposed (Credit)</span>
+                <span class="info-box-number h5 font-weight-bold text-dark mb-0">Asset Lifecycle End</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ৪. অপারেশনাল স্ট্যাটাস (সফট গোল্ড/অ্যাম্বার শেড) -->
+    <div class="col-12 col-sm-6 col-md-3 mb-3">
+        <div class="info-box bg-white border shadow-sm" style="border-radius: 8px; border-color: #e2e8f0 !important;">
+            <span class="info-box-icon elevation-0" style="background-color: #fef3c7; color: #b45309; border-radius: 6px; max-width: 60px; height: 60px; margin: auto 10px;"><i class="fas fa-tasks"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text text-uppercase text-muted font-weight-bold" style="font-size: 10px; letter-spacing: 0.5px;">Pending Approval</span>
+                <span class="info-box-number h5 font-weight-bold text-dark mb-0">Workflow Active</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- জ্যাঙ্গো অ্যাডমিনের বাকি অংশ নিচে লোড হবে -->
+{{ block.super }}
+{% endblock %}

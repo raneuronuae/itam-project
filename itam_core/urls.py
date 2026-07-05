@@ -15,8 +15,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include  # এখানে include যোগ করা হয়েছে
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('core/', include('core_assets.urls')),  # আপনার অ্যাপের ইউআরএল কানেক্ট করা হলো
 ]
