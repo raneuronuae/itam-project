@@ -280,11 +280,14 @@ DEFAULT_FROM_EMAIL = 'ITAM System <your-email@gmail.com>'
 import os
 from django.contrib.auth import get_user_model
 
+# এই কোডটি শুধুমাত্র রেন্ডার সার্ভারে রান করবে
 if os.environ.get('RENDER'):
     try:
         User = get_user_model()
+        # আপনার সঠিক ইউজারনেম 'Ruhul_Amin' ব্যবহার করা হয়েছে
         user = User.objects.get(username='Ruhul_Amin')
-        user.set_password('adminuae')
+        user.set_password('adminuae') # নতুন পাসওয়ার্ড
         user.save()
-    except Exception:
-        pass
+        print("Password reset successful!")
+    except Exception as e:
+        print(f"Password reset skipped: {e}")
