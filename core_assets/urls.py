@@ -1,6 +1,10 @@
 from django.urls import path
 from . import views
 
-urlpatterns = [ 
-    path('purchase-order/<int:po_id>/invoice/', views.purchase_order_invoice, name='po_invoice'),
+urlpatterns = [
+    # PO Invoice URL 
+    path('purchase-order/<int:po_id>/invoice/', views.purchase_order_invoice, name='purchase_order_invoice'),
+    
+    # Delivery Challan URL 
+    path('asset-assignment/<int:assignment_id>/challan/', views.asset_assignment_challan, name='asset_assignment_challan'),
 ]

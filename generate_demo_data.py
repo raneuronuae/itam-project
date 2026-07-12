@@ -3,7 +3,7 @@ import django
 import random
 from datetime import datetime, timedelta
 
-# জ্যাঙ্গো এনভায়রনমেন্ট সেটআপ
+# জ্যাঙ্গো এনভায়রনমেন্ট সেটআপ
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'itam_core.settings')
 django.setup()
 
@@ -17,13 +17,13 @@ from core_assets.models import (
 )
 
 def create_demo_data():
-    print("🚀 ডেমো ডেটা তৈরি হওয়া শুরু হয়েছে... দয়া করে অপেক্ষা করুন...")
+    print("🚀 ডেমো ডেটা তৈরি হওয়া শুরু হয়েছে... দয়া করে অপেক্ষা করুন...")
 
     # ০. সুপারইউজার বা ডিফল্ট ইউজার চেক
     user = User.objects.first()
     if not user:
         user = User.objects.create_superuser('admin2', 'admin2@test.com', 'admin123')
-        print("👤 একটি ডিফল্ট অ্যাডমিন ইউজার তৈরি করা হয়েছে (username: admin2, pass: admin123)")
+        print("👤 একটি ডিফল্ট অ্যাডমিন ইউজার তৈরি করা হয়েছে (username: admin2, pass: admin123)")
 
     # ১. Locations (৫টি লোকেশন)
     locations_data = [
@@ -90,7 +90,7 @@ def create_demo_data():
         obj, _ = Vendor.objects.get_or_create(vendor_name=v["name"], defaults={"email": v["email"], "phone": v["phone"], "address": "Dhaka, Bangladesh"})
         vendors.append(obj)
 
-    # ৬. Employees (৫০টি র্যান্ডম এমপ্লয়ি তৈরি)
+    # ৬. Employees (৫০টি র্যান্ডম এমপ্লয়ি তৈরি)
     first_names = ["Arif", "Sultana", "Imran", "Nusrat", "Rakib", "Fariha", "Sajid", "Mitu", "Tamim", "Tasnim"]
     last_names = ["Hassan", "Ahmed", "Islam", "Rahman", "Khan", "Ali", "Chowdhury", "Sarker", "Hossain", "Begum"]
     designations = ["Software Engineer", "HR Executive", "Financial Analyst", "Marketing Manager", "IT Support Specialist"]
@@ -112,7 +112,7 @@ def create_demo_data():
         )
         employees.append(obj)
 
-    # ৭. Assets (৫০টি র্যান্ডম অ্যাসেট বা সম্পদ তৈরি)
+    # ७. Assets (৫০টি র্যান্ডম অ্যাসেট বা সম্পদ তৈরি)
     brands = ["Dell", "HP", "Lenovo", "Cisco", "Apple", "Samsung", "Otobi"]
     models_pool = ["Latitude 5420", "ThinkPad E14", "ProBook 450", "Catalyst 2960", "MacBook Pro", "Galaxy Tab S8", "Executive Chair"]
     
@@ -169,14 +169,14 @@ def create_demo_data():
             from_location=random.choice(locations),
             to_location=random.choice(locations),
             transfer_date=datetime.today().date(),
-            defaults={
-                "approved_by": "Admin Approved",
+            defaults = {
+                "approved_by": user,
                 "status": "Completed",
                 "transfer_reason": "Inter-branch office reallocation."
             }
         )
 
-    # ১০. Procurement (ক্রয় আদেশ বা Purchase Orders - ১০টি)
+    # ১০. Procurement (ক্রয় আদেশ বা Purchase Orders - ১০টি)
     for i in range(1, 11):
         po, _ = PurchaseOrder.objects.get_or_create(
             po_number=f"PO-2026-{500 + i}",
@@ -184,7 +184,7 @@ def create_demo_data():
                 "vendor": random.choice(vendors),
                 "po_date": datetime.today().date() - timedelta(days=15),
                 "approval_status": "Approved",
-                "created_by": "Admin User",
+                "created_by": user,
                 "total_amount": 150000.00
             }
         )
@@ -194,20 +194,20 @@ def create_demo_data():
             defaults={"quantity": 5, "unit_price": 30000.00, "total_price": 150000.00}
         )
 
-    # ১১. Maintenance (রক্ষণাবেক্ষণ - ১০টি টিকিট)
+    # ১১. Maintenance (রক্ষণাবেক্ষণ - ১০টি টিকিট) [FIXED]
     for i in range(10):
-        req, _ = MaintenanceRequest.objects.get_or_create(
+        MaintenanceRequest.objects.get_or_create(
             ticket_no=f"TKT-{8000 + i}",
             defaults={
                 "asset": random.choice(assets),
-                "reported_by": "IT Desk",
+                "reported_by": user,  # এখানে সরাসরি ইউজার অবজেক্ট পাস করা হয়েছে
                 "issue_description": "Display flickering issue or OS crash.",
                 "priority": "High",
                 "status": "Open"
             }
         )
 
-    # ১২. Software Products & Licenses (সফটওয়্যার - ৫টি)
+    # ১২. Software Products & Licenses (সফটওয়্যার - ৫টি)
     softwares = ["Windows 11 Pro", "Microsoft Office 365", "Adobe Photoshop", "Kaspersky Antivirus", "Slack Premium"]
     for sw_name in softwares:
         sw, _ = SoftwareProduct.objects.get_or_create(
@@ -219,7 +219,7 @@ def create_demo_data():
             defaults={"license_key": f"XXXX-XXXX-XXXX-KEY-{random.randint(10,99)}", "quantity": 50, "cost": 15000.00, "status": "Active"}
         )
 
-    print("✅ অভিনন্দন! ৫০টি করে ডেমো ডেটা আপনার সিস্টেমে সফলভাবে ইনপুট হয়ে গেছে।")
+    print("✅ অভিনন্দন! সব ধরণের ডেমো ডেটা আপনার সিস্টেমে সফলভাবে ইনপুট হয়ে গেছে।")
 
 if __name__ == "__main__":
     create_demo_data()

@@ -1,4 +1,3 @@
-{% load custom_filters %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +5,6 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
 
-        /* এ৪ পেজ সেটিংস */
         @page { size: A4; margin: 0; }
         
         body { 
@@ -29,11 +27,9 @@
             position: relative;
         }
 
-        /* বাটন এরিয়া */
         .no-print { display: flex; gap: 10px; margin-bottom: 20px; }
         .btn { padding: 8px 16px; border-radius: 6px; cursor: pointer; border: none; font-weight: 600; font-size: 12px; text-decoration: none; color: white; display: inline-block; }
 
-        /* হেডার এবং ব্র্যান্ডিং */
         .header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 40px; }
         .brand-name { font-size: 32px; font-weight: 800; color: #1e3a8a; margin: 0; }
         .badge { background: #0f172a; color: #fff; padding: 6px 16px; border-radius: 4px; font-size: 10px; font-weight: 800; text-transform: uppercase; }
@@ -42,7 +38,6 @@
         .label { font-size: 9px; font-weight: 700; color: #64748b; text-transform: uppercase; }
         .value { font-weight: 600; font-size: 14px; margin-top: 4px; }
 
-        /* প্রফেশনাল নোট কার্ড */
         .note-card { 
             background: #f8fafc; 
             border-left: 4px solid #1e3a8a; 
@@ -55,14 +50,13 @@
             line-height: 1.6;
         }
 
-        /* টেবিল এবং টোটালস */
         .table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
         .table th { background: #f8fafc; padding: 12px; text-align: left; font-size: 10px; color: #64748b; border-bottom: 2px solid #e2e8f0; }
         .table td { padding: 16px 12px; border-bottom: 1px solid #e2e8f0; font-size: 13px; }
 
         .totals-box { width: 250px; margin-left: auto; }
         .total-row { display: flex; justify-content: space-between; padding: 6px 0; }
-        .grand-total { border-top: 2px solid #0f172a; font-weight: 800; padding-top: 10px; font-size: 16px; color: #1e3a8a; }
+        .grand-total { border-top: 2px solid #0f172a; font-weight: 800; padding-top: 10px; font-size: 16px; }
 
         @media print {
             .no-print { display: none !important; }
@@ -77,7 +71,7 @@
     <div class="no-print">
         <button onclick="window.history.back()" class="btn" style="background:#64748b;">Back</button>
         <button onclick="window.print()" class="btn" style="background:#0f172a;">Print</button>
-        <a href="?format=pdf" class="btn" style="background:#2563eb;">Download</a>
+        <a href="?format=pdf" download="AC-2026-0001.pdf" class="btn" style="background:#2563eb;">Download</a>
     </div>
 
     <div class="header">
@@ -85,28 +79,28 @@
             <h1 class="brand-name">Enterprise ITAM</h1>
             <p style="color: #64748b; margin: 5px 0 0 0; font-size: 13px;">Sheikh Zayed Road, Dubai, UAE</p>
         </div>
-        <div class="badge">PO Invoice</div>
+        <div class="badge">Asset Challan</div>
     </div>
 
     <div class="info-grid">
         <div>
-            <div class="label">Vendor Information</div>
-            <div class="value">{{ po.vendor_name }}</div>
-            <div style="font-size: 12px; color: #64748b; margin-top: 4px;">{{ po.vendor_address }}</div>
+            <div class="label">Assigned To</div>
+            <div class="value">{{ challan.employee.employee_name }}</div>
+            <div style="font-size: 12px; color: #64748b;">{{ challan.employee.department.department_name }}</div>
         </div>
         <div style="text-align: right;">
-            <div class="label">Invoice ID</div>
-            <div class="value">{{ po.po_number }}</div>
+            <div class="label">Challan ID</div>
+            <div class="value">AC-2026-0001</div>
             <div class="label" style="margin-top:15px;">Issued Date</div>
-            <div class="value">{{ po.created_at }}</div>
+            <div class="value">July 10, 2026</div>
         </div>
     </div>
 
     <div class="note-card">
         <div style="font-weight: 800; color: #1e3a8a; margin-bottom: 4px; display: flex; align-items: center; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px;">
-            📄 Official Purchase Invoice
+            📄 Official Asset Assignment
         </div>
-        This invoice is issued against the purchase order <strong>{{ po.po_number }}</strong>. Please verify the asset details, quantities, and pricing to ensure compliance with company financial policies.
+        This asset has been formally issued to <strong>{{ challan.employee.employee_name }}</strong> for professional use. Please adhere to the company's IT policy guidelines regarding asset management and maintenance.
     </div>
 
     <table class="table">
@@ -114,47 +108,25 @@
             <tr><th>Description</th><th>Qty</th><th style="text-align: right;">Price</th><th style="text-align: right;">Total</th></tr>
         </thead>
         <tbody>
-            {% for item in po.items_all %}
             <tr>
                 <td>
-                    <div style="font-weight: 600;">{{ item.name }}</div>
-                    <div style="color:#64748b; font-size: 11px;">SKU: {{ item.sku }}</div>
+                    <div style="font-weight: 600;">{{ challan.asset.asset_name }}</div>
+                    <div style="color:#64748b; font-size: 11px;">SN: {{ challan.asset.serial_number }} | TAG: {{ challan.asset.asset_tag }}</div>
                 </td>
-                <td>{{ item.qty }}</td>
-                <td style="text-align: right;">${{ item.price|floatformat:2 }}</td>
-                <td style="text-align: right; font-weight: 700;">${{ item.total|floatformat:2 }}</td>
+                <td>1</td>
+                <td style="text-align: right;">$18,216.00</td>
+                <td style="text-align: right; font-weight: 700;">$18,216.00</td>
             </tr>
-            {% endfor %}
         </tbody>
     </table>
 
     <div class="totals-box">
-        <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #e2e8f0; border-radius: 6px; background: #f8fafc; text-align: left;">
-            <div style="display: flex; justify-content: space-between; font-weight: 800;">
-                <span>Status:</span>
-                <span style="color: {% if po.is_paid %}#16a34a{% else %}#dc2626{% endif %};">
-                    {% if po.is_paid %}PAID{% else %}DUE{% endif %}
-                </span>
-            </div>
-            {% if not po.is_paid %}
-            <div style="display: flex; justify-content: space-between; margin-top: 5px; font-size: 12px;">
-                <span>Due Amount:</span>
-                <span>${{ po.grand_total|floatformat:2 }}</span>
-            </div>
-            {% endif %}
-        </div>
-
-        <div class="total-row"><span>Subtotal</span> <span>${{ po.sub_total|floatformat:2 }}</span></div>
-        <div class="total-row"><span>Tax (5%)</span> <span>+${{ po.tax_amount|floatformat:2 }}</span></div>
-        <div class="total-row grand-total"><span>Grand Total</span> <span>${{ po.grand_total|floatformat:2 }}</span></div>
-        
-        <div style="font-size: 10px; color: #64748b; margin-top: 10px; font-style: italic; text-align: left;">
-            In Words: {{ po.grand_total|to_words }} only.
-        </div>
+        <div class="total-row"><span>Subtotal</span> <span>$18,216.00</span></div>
+        <div class="total-row grand-total"><span>Grand Total</span> <span>$18,216.00</span></div>
     </div>
 
     <div style="margin-top: 80px; display: flex; justify-content: space-between; align-items: end;">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=PO-{{po.po_number}}" style="width: 70px;">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=AC-2026-0001" style="width: 70px;">
         <div style="border-top: 1px solid #000; width: 150px; text-align: center; font-size: 12px; padding-top: 5px;">Authorized Signature</div>
     </div>
 </div>

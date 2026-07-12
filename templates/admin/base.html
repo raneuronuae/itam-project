@@ -3,12 +3,27 @@
 {% block extrahead %}
 {{ block.super }}
 <style>
-    /* ১. পুরো ড্যাশবোর্ডের সব পেজ থেকে জ্যাজমিন ভার্সন টেক্সট চিরতরে হাইড */
-    footer.main-footer .float-right {
+    /* ১. পুরো ড্যাশবোর্ডের সব পেজ থেকে জ্যাজমিন ফুটার এবং ভার্সন টেক্সট ১০০% গায়েব */
+    footer.main-footer,
+    .main-footer,
+    footer.main-footer .float-right,
+    footer.main-footer * {
         display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: none !important;
+        overflow: hidden !important;
     }
 
-    /* ২. ইউজার প্রোফাইল ও ফর্ম ভিউ প্রিমিয়াম করার জন্য কাস্টমাইজেশন */
+    /* ফুটার ডিলিট হওয়ার পর নিচের বডি স্পেসিং ফিক্স */
+    body {
+        padding-bottom: 0 !important;
+    }
+
+    /* ২. ইউজার প্রোফাইল ও ফর্ম ভিউ প্রিমিয়াম করার জন্য কাস্টমাইজেশন */
     .card-body {
         border-radius: 8px !important;
     }
@@ -18,9 +33,11 @@
         padding-bottom: 15px;
     }
     
-    /* পাসওয়ার্ড হ্যাশ টেক্সটকে ক্লিন ও মার্জিত করার জন্য স্টাইল */
+    /* পাসওয়ার্ড হ্যাশ টেক্সটকে ক্লিন ও মার্জিত করার জন্য স্টাইল */
     .form-group .help-block, 
-    .form-group text {
+    .form-group text,
+    #user_form .form-group p,
+    .field-password div {
         font-size: 12px !important;
         color: #64748b !important;
         font-family: system-ui, sans-serif !important;

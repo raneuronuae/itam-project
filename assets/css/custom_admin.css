@@ -1,0 +1,180 @@
+/* ==========================================================================
+   ENTERPRISE ITAM - ABSOLUTE CSS FIX & NIGHT MODE OVERLAY
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   ১. জ্যাজমিন ফুটার ও ভার্সন টেক্সট ১০০% গায়েব করার মাস্টার ট্রিক
+   -------------------------------------------------------------------------- */
+html body .main-footer,
+html body footer.main-footer,
+footer.main-footer .float-right,
+footer.main-footer b,
+footer.main-footer strong + b,
+.main-footer .float-right,
+div.float-right.d-none.d-sm-inline,
+footer.main-footer * {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+}
+
+/* ফুটার এরিয়া টোটাল জিরো ডাউন */
+footer.main-footer {
+    display: none !important;
+    height: 0 !important;
+    padding: 0 !important;
+}
+
+/* --------------------------------------------------------------------------
+   ২. ক্লিক করলেই মাখনের মতো স্মুথ ট্রানজিশন (Night Mode Smoothness)
+   -------------------------------------------------------------------------- */
+body, 
+.content-wrapper, 
+.main-sidebar, 
+.main-header, 
+.card, 
+.nav-link, 
+table, tr, td, th,
+.navbar,
+.brand-link {
+    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                color 0.3s ease, 
+                border-color 0.4s ease, 
+                box-shadow 0.4s ease !important;
+}
+
+/* পেজ লোড হওয়ার হালকা ফেড-ইন অ্যানিমেশন */
+@keyframes fadeInPage {
+    from { opacity: 0.9; transform: translateY(2px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.content-wrapper {
+    animation: fadeInPage 0.3s ease-out !important;
+}
+
+/* --------------------------------------------------------------------------
+   ৩. কর্পোরেট লেভেল মডার্ন বক্স ও কার্ড শ্যাডো (Light & Dark UI)
+   -------------------------------------------------------------------------- */
+.card {
+    border-radius: 8px !important;
+    border: 1px solid rgba(0, 0, 0, 0.06) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03) !important;
+}
+
+/* ডার্ক মোডে বক্সের বর্ডার ও গ্লো কন্ট্রোল */
+.dark-mode .card {
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* --------------------------------------------------------------------------
+   ৪. ইউজার প্রোফাইলের পাসওয়ার্ড ও সাধারণ ফর্ম এরিয়া (Professional Look)
+   -------------------------------------------------------------------------- */
+.form-group .help-block, 
+.form-group .text-muted,
+#user_form .form-group p,
+.field-password div {
+    font-size: 13px !important;
+    padding: 12px 16px !important;
+    border-radius: 6px !important;
+    display: block !important;
+    margin-top: 8px !important;
+    line-height: 1.6 !important;
+}
+
+/* লাইট মোড ফর্ম টেক্সট ব্যাকগ্রাউন্ড */
+.form-group .help-block, .form-group .text-muted, #user_form .form-group p, .field-password div {
+    background-color: #f8f9fa;
+    color: #495057;
+}
+
+/* ডার্ক মোড ফর্ম টেক্সট ব্যাকগ্রাউন্ড */
+.dark-mode .form-group .help-block, 
+.dark-mode .form-group .text-muted, 
+.dark-mode #user_form .form-group p, 
+.dark-mode .field-password div {
+    background-color: #2c3034 !important;
+    color: #e9ecef !important;
+}
+
+.form-group p strong,
+.field-password strong {
+    padding: 2px 6px !important;
+    border-radius: 4px !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    margin-right: 4px !important;
+    display: inline-block !important;
+    background-color: #e2e8f0;
+    color: #1a202c;
+}
+
+.dark-mode .form-group p strong,
+.dark-mode .field-password strong {
+    background-color: #4a5568 !important;
+    color: #edf2f7 !important;
+}
+
+.field-password a,
+#user_form .form-group p a {
+    display: inline-block !important;
+    margin-top: 10px !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
+}
+
+.field-password a:hover,
+#user_form .form-group p a:hover {
+    text-decoration: underline !important;
+}
+
+/* --------------------------------------------------------------------------
+   ৫. নাইট মোড টগল বাটন (চাঁদ আইকন) ফোর্সফুলি নিয়ে আসার রুল
+   -------------------------------------------------------------------------- */
+html body .navbar-nav .nav-item .nav-link #dark-mode-toggle,
+html body [id*="dark-mode"],
+html body .fa-moon,
+html body .fa-sun {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.badge {
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: white;
+}
+.badge-success { background-color: #28a745; }
+.badge-danger { background-color: #dc3545; }
+
+/* --------------------------------------------------------------------------
+   ৬. সার্চ বক্স এবং বাটন লেআউট ফিক্স (চূড়ান্ত সংস্করণ)
+   -------------------------------------------------------------------------- */
+/* সার্চ ফর্মের কন্টেইনার ফিক্স */
+#changelist-search {
+    display: flex !important;
+    flex-wrap: nowrap !important; /* এটি নিচে নামা বন্ধ করবে */
+    align-items: center !important;
+    gap: 10px !important;
+    width: 100% !important;
+}
+
+/* ফর্মের ভেতরের ইনপুট বক্সের জন্য */
+#changelist-search .form-control {
+    width: auto !important;
+    min-width: 250px !important;
+    flex: 0 0 auto !important;
+}
+
+/* সার্চ বাটনের জন্য */
+#changelist-search .btn-primary {
+    flex: 0 0 auto !important;
+}
