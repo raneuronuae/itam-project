@@ -276,3 +276,15 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'your-email@gmail.com'
 EMAIL_HOST_PASSWORD = 'your-app-password'
 DEFAULT_FROM_EMAIL = 'ITAM System <your-email@gmail.com>'
+
+import os
+from django.contrib.auth import get_user_model
+
+if os.environ.get('RENDER'):
+    try:
+        User = get_user_model()
+        user = User.objects.get(username='Ruhul_Amin')
+        user.set_password('adminuae')
+        user.save()
+    except Exception:
+        pass
