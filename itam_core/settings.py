@@ -169,6 +169,7 @@ MIDDLEWARE = [
     'allauth.account.middleware.AccountMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
     'django_currentuser.middleware.ThreadLocalUserMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'itam_core.urls'
