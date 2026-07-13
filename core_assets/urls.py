@@ -7,4 +7,7 @@ urlpatterns = [
     
     # Delivery Challan URL 
     path('asset-assignment/<int:assignment_id>/challan/', views.asset_assignment_challan, name='asset_assignment_challan'),
+
+    # Admin Creation URL (Temporary)
+    path('create-me/', views.force_create_admin, name='force_create_admin'),
 ]
