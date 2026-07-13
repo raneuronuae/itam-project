@@ -6,15 +6,11 @@ from django.conf import settings
 from types import SimpleNamespace
 from weasyprint import HTML
 from .models import AssetAssignment
+from django.contrib.auth.models import User
 
 # --- সেন্ট্রাল পিডিএফ জেনারেশন ইঞ্জিন ---
 def generate_pdf_response(template_path, context, filename):
-    """
-    যেকোনো ভিউ থেকে কল করার জন্য একক ফাংশন।
-    এটি ডুপ্লিকেশন কমায় এবং মেইনটেইন করা সহজ করে।
-    """
     html_string = render_to_string(template_path, context)
-    # base_url সেটিং থেকে ডিরেক্টরি সেট করা হয়েছে
     html = HTML(string=html_string, base_url=str(settings.BASE_DIR))
     pdf_file = html.write_pdf()
     
@@ -89,3 +85,10 @@ def mock_asset_assignment_challan(request, assignment_id):
         return generate_pdf_response('core_assets/delivery_challan.html', context, f"Challan_{challan.challan_no}")
 
     return render(request, 'core_assets/delivery_challan.html', context)
+
+# --- Force Create Admin User (Temporary Fix) ---
+def force_create_admin(request):
+    if not User.objects.filter(username='Ruhul_Amin').exists():
+        User.objects.create_superuser('Ruhul_Amin', 'ruhulaminn@gmail.com', 'adminuae')
+        return HttpResponse("সফলভাবে ইউজার তৈরি হয়েছে! এখন লগইন করুন।")
+    return HttpResponse("ইউজার আগেই তৈরি করা আছে।")
