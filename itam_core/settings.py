@@ -280,17 +280,26 @@ EMAIL_HOST_PASSWORD = 'your-app-password'
 DEFAULT_FROM_EMAIL = 'ITAM System <your-email@gmail.com>'
 
 import os
-from django.contrib.auth import get_user_model
+from django.core.management import call_command
 
-# এই কোডটি শুধুমাত্র রেন্ডার সার্ভারে রান করবে
+# ==============================================================================
+# AUTOMATIC MIGRATION & SUPERUSER SETUP ON RENDER
+# ==============================================================================
 if os.environ.get('RENDER'):
     try:
+        print("Starting automatic migration...")
+        call_command('migrate', interactive=False)
+        
+        from django.contrib.auth import get_user_model
         User = get_user_model()
-        # আপনার সঠিক ইউজারনেম 'Ruhul_Amin' ব্যবহার করা হয়েছে
-        user = User.objects.get(username='Ruhul_Amin')
-        user.set_password('adminuae') # নতুন পাসওয়ার্ড
-        user.save()
-        print("Password reset successful!")
+        
+        if not User.objects.filter(username='Admin_Ruhul').exists():
+            print("Creating superuser 'Admin_Ruhul'...")
+            User.objects.create_superuser('Admin_Ruhul', 'ruhulamin@gmail.com', 'Admin#Dubai2026')
+            print("Superuser created successfully!")
+        else:
+            print("Superuser already exists.")
+            
     except Exception as e:
-        print(f"Password reset skipped: {e}")
+        print(f"Setup skipped or error: {e}")
 
