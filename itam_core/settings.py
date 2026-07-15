@@ -293,3 +293,26 @@ if os.environ.get('RENDER'):
         print("Password reset successful!")
     except Exception as e:
         print(f"Password reset skipped: {e}")
+
+
+        # ==============================================================================
+# AUTOMATIC MIGRATION & USER SETUP ON RENDER
+# ==============================================================================
+import sys
+from django.core.management import call_command
+
+if os.environ.get('RENDER'):
+    try:
+        print("Starting automatic migration...")
+        call_command('migrate', interactive=False)
+        
+        from django.contrib.auth import get_user_model
+        User = get_user_model()
+        if not User.objects.filter(username='Admin_Ruhul').exists():
+            print("Creating superuser...")
+            User.objects.create_superuser('Admin_Ruhul', 'ruhulamin@gmail.com', 'Admin#Dubai2026')
+            print("Superuser created successfully!")
+        else:
+            print("Superuser already exists.")
+    except Exception as e:
+        print(f"Setup skipped or error: {e}")
